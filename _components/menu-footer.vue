@@ -1,7 +1,7 @@
 <template>
   <div id="menuFooter">
     <span class="text-weight-bold" style="font-size: 18px">Menú</span>
-    <q-list no-border link inset-delimiter class="q-pa-none q-pt-sm">
+    <q-list no-border link inset-delimiter class="q-pa-none">
       <q-item link :to="item.to" :key="index"
               v-for="(item, index) in sidebar">
         <q-item-side icon="fas fa-angle-right"/>
@@ -11,16 +11,12 @@
   </div>
 </template>
 <script>
-  /*Config*/
-  import Config from 'src/config/index'
-  import _cloneDeep from 'lodash.clonedeep'
-
   /*Services*/
   import menuService from '../_services/menu'
 
   export default {
     props: {
-      idMenu : {default : false}
+      idMenu : {default:1}
     },
     components: {},
     watch: {},
@@ -37,14 +33,9 @@
     methods: {
       /*Request Menu*/
       getData() {
-        if(this.idMenu){
-          menuService.show(this.idMenu).then((menu) => {
-            this.renderMenu(menu.data)
-          })
-        }else{
-          let dataMenu = _cloneDeep(Config('sidebar'))
-          this.renderMenu(dataMenu)
-        }
+        menuService.show(this.idMenu).then((menu) => {
+          this.renderMenu(menu.data)
+        })
       },
 
       /*Chech if hasacces item menu*/
@@ -70,5 +61,24 @@
 </script>
 <style lang="stylus">
   @import "~variables";
-
+  #menuFooter
+    .q-list
+      margin-top 25px
+      .q-item
+        padding 0
+        .q-item-side
+          min-width auto
+          transition .5s
+        .q-item-main
+          white-space nowrap
+          overflow hidden
+          text-overflow ellipsis
+        &:first-child
+          display none
+        &:hover,
+        &.router-link-active
+          background-color transparent
+          color $grey-6
+          .q-item-side
+            padding-left 15px
 </style>

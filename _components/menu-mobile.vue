@@ -40,7 +40,7 @@
 
   export default {
     props: {
-      idMenu : {default : false}
+      idMenu : {default : 1}
     },
     components: {
       singleItem,
@@ -60,14 +60,9 @@
     methods: {
       /*Request Menu*/
       getData() {
-        if(this.idMenu){
-          menuService.show(this.idMenu).then((menu) => {
-            this.renderMenu(menu.data)
-          })
-        }else{
-          let dataMenu = _cloneDeep(Config('sidebar'))
-          this.renderMenu(dataMenu)
-        }
+        menuService.show(this.idMenu).then((menu) => {
+          this.renderMenu(menu.data)
+        })
       },
 
       /*Chech if hasacces item menu*/

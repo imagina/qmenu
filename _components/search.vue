@@ -1,23 +1,28 @@
 <template>
-  <div id="search" class="float-right">
+  <div id="search">
     <!--= Search Desktop =-->
-    <q-btn flat icon="fas fa-search" class="desktop-only">
-      <!-- Direct child of target -->
-      <q-popover anchor="bottom right"
-                 self="top right"
-                 @show="$refs.searchDesktop.focus()"
-                 class="q-pa-sm">
-        <q-search
-          ref="searchDesktop"
-          v-model="searchData"
-          :debounce="600"
-          autofocus
-          @input="search"
-          placeholder="Buscar"
-          icon="fas fa-search"
-        ></q-search>
-      </q-popover>
-    </q-btn>
+    <div class="desktop-only">
+      <q-search
+        ref="searchDesktop"
+        color="white" inverted-light
+        class="searchDesktop"
+        v-model="searchData"
+        clearable no-icon
+        @input="search"
+        @enter="search"
+        placeholder="Buscar"
+        :before="[
+          {
+            icon: 'search',
+            color: 'primary',
+            handler () {
+              search
+            }
+          }
+        ]"
+      ></q-search>
+    </div>
+
 
     <!--= Search Mobile =-->
     <q-btn flat icon="fas fa-search"
@@ -37,7 +42,15 @@
           @input="search"
           @enter="search"
           placeholder="Buscar"
-          icon="fas fa-search"
+          :after="[
+          {
+            icon: 'fas fa-search',
+            color: 'primary',
+            handler () {
+              search
+            }
+          }
+        ]" no-icon
         ></q-search>
       </div>
     </q-modal>
@@ -46,23 +59,46 @@
 
 <script>
   export default {
-    props: {},
+    props: {
+      focus: {default:false}
+    },
     components: {},
-    watch: {},
+    watch: {
+      focus(){
+        this.$refs.searchDesktop.focus()
+      }
+    },
     mounted() {
       this.$nextTick(function () {
+        this.setSearch()
+        if(this.focus){
+          this.$refs.searchDesktop.focus()
+        }
       })
     },
     data() {
       return {
         modalSearch : false,
-        searchData: ''
+        searchData: '',
+        collapsibleSearch: false
       }
     },
     methods: {
       search(){
-        console.log(this.searchData)
+        if(this.searchData) {
+          this.$router.push({
+            name: 'buscar',
+            query: {search: this.searchData}
+          })
+        }
       },
+      //if ther is search in url
+      setSearch(){
+        let url = this.$route.query
+        if(url.search){
+          this.searchData = url.search
+        }
+      }
     }
 
   }
@@ -71,12 +107,10 @@
 <style lang="stylus">
   @import "~variables";
   #search
-    position relative
-    .q-btn
-      height 26px !important
-      border-left 1px solid $secondary !important
-      border-right 1px solid $secondary !important
-      border-radius 0
+    .desktop-only
+      .searchDesktop
+        width 500px
+        margin 0 auto
     .btnMobile
       border none !important
 </style>
