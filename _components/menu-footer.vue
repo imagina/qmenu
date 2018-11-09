@@ -11,52 +11,12 @@
   </div>
 </template>
 <script>
-  /*Services*/
-  import menuService from '../_services/menu'
-
   export default {
-    props: {
-      idMenu : {default:1}
-    },
-    components: {},
-    watch: {},
-    mounted() {
-      this.$nextTick(function () {
-        this.getData()
-      })
-    },
     data() {
       return {
-        sidebar: [],
+        sidebar: this.$store.getters['menu/mainMenu'],
       }
-    },
-    methods: {
-      /*Request Menu*/
-      getData() {
-        menuService.show(this.idMenu).then((menu) => {
-          this.renderMenu(menu.data)
-        })
-      },
-
-      /*Chech if hasacces item menu*/
-      async renderMenu(dataMenu) {
-        //Function recursive for validate permissions
-        let hasAccess = async (data) => {
-          for (var item in data) {
-            let itemAccess = data[item]
-
-            itemAccess.can = true
-            if (itemAccess.children) {
-              itemAccess.children = await hasAccess(itemAccess.children)
-            }
-          }
-          return data//Return all data
-        }
-
-        this.sidebar = await hasAccess(dataMenu)
-      },
     }
-
   }
 </script>
 <style lang="stylus">

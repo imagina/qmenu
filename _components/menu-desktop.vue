@@ -29,8 +29,7 @@
                 <dropdownItem v-else-if="lv2.children"
                               :item="lv2">
                   <singleItem v-for="(lv3,key3) in lv2.children"
-                              :item="lv3" :key="key3"
-                              v-if="lv3.can">
+                              :item="lv3" :key="key3">
                   </singleItem>
                 </dropdownItem>
               </q-list>
@@ -63,13 +62,7 @@
   import Config from 'src/config/index'
   import _cloneDeep from 'lodash.clonedeep'
 
-  /*Services*/
-  import menuService from '../_services/menu'
-
   export default {
-    props: {
-      idMenu: {default: 1}
-    },
     components: {
       singleItem,
       dropdownItem,
@@ -87,43 +80,12 @@
         }
       }
     },
-    mounted() {
-      this.$nextTick(function () {
-        this.getData()
-      })
-    },
     data() {
       return {
-        sidebar: [],
+        sidebar: this.$store.getters['menu/mainMenu'],
         showSearch: false
       }
-    },
-    methods: {
-      /*Request Menu*/
-      getData() {
-        menuService.show(this.idMenu).then((menu) => {
-          this.renderMenu(menu.data)
-        })
-      },
-      /*Chech if hasacces item menu*/
-      async renderMenu(dataMenu) {
-        //Function recursive for validate permissions
-        let hasAccess = async (data) => {
-          for (var item in data) {
-            let itemAccess = data[item]
-
-            itemAccess.can = true
-            if (itemAccess.children) {
-              itemAccess.children = await hasAccess(itemAccess.children)
-            }
-          }
-          return data//Return all data
-        }
-
-        this.sidebar = await hasAccess(dataMenu)
-      },
     }
-
   }
 </script>
 <style lang="stylus">
