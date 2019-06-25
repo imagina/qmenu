@@ -14,7 +14,7 @@
   export default {
     data() {
       return {
-        sidebar: this.$store.getters['menu/mainMenu'],
+        sidebar: this.$store.getters['qmenuMaster/mainMenu'],
       }
     }
   }
