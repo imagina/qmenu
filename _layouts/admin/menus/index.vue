@@ -78,6 +78,15 @@
               <q-tooltip :delay="300">Delete</q-tooltip>
             </q-btn>
           </q-td>
+  
+          <q-td slot="body-cell-default" slot-scope="props" :props="props">
+            <q-icon name="fa fa-check-circle " color="green" v-if="props.row.is_default" size="20px">
+              <q-tooltip :delay="300">Default Menu</q-tooltip>
+            </q-icon>
+            <q-icon name="fa fa-times-circle " color="red" v-else size="20px">
+            </q-icon>
+            
+          </q-td>
           
         </q-table>
       </div>
@@ -123,6 +132,7 @@
           columns: [
             {name: 'id', label: 'ID', field: 'id', align: 'left'},
             {name: 'name', label: 'Name', field: 'name', align: 'left'},
+            {name: 'default', label: 'Default', field: 'default', align: 'left'},
             {name: 'actions', label: 'Actions', align: 'right'},
           ],
           pagination: {
@@ -131,7 +141,8 @@
             rowsPerPage: 10
           },
           filter: {
-            search: null
+            search: null,
+            allTranslations: true
           },
         },
         formItemShow: false,

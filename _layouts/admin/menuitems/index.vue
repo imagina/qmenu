@@ -62,6 +62,7 @@
           <q-td slot="body-cell-actions" slot-scope="props" :props="props">
             <!--Edit button-->
             <q-btn
+              @click="itemIdToEdit = props.row.id; formItemShow = true"
               color="positive"
               icon="fas fa-pen"
               size="sm"
@@ -70,12 +71,28 @@
             </q-btn>
             <!--Delete button-->
             <q-btn
+              @click="deleteItem(props.row)"
               color="negative"
               icon="fas fa-trash-alt"
               size="sm"
               rounded>
               <q-tooltip :delay="300">Delete</q-tooltip>
             </q-btn>
+          </q-td>
+  
+          <q-td slot="body-cell-id" slot-scope="props" :props="props">
+            <q-chip>
+              {{props.row.id}}
+            </q-chip>
+          </q-td>
+          
+          <q-td slot="body-cell-parentId" slot-scope="props" :props="props">
+            <q-chip v-if="props.row.parentId">
+              {{props.row.parentId}}
+            </q-chip>
+            <div v-else >
+              -
+            </div>
           </q-td>
         
         </q-table>
@@ -118,12 +135,10 @@
           data: [],
           columns: [
             {name: 'id', label: 'ID', field: 'id', align: 'left'},
-            {name: 'title', label: 'title', field: 'title', align: 'left'},
-            {name: 'target', label: 'target', field: 'target', align: 'left'},
-            {name: 'uri', label: 'uri', field: 'uri', align: 'left'},
-            {name: 'url', label: 'url', field: 'url', align: 'left'},
-            {name: 'status', label: 'status', field: 'status', align: 'left'},
-            {name: 'linkType', label: 'linkType', field: 'linkType', align: 'left'},
+            {name: 'title', label: 'Title', field: 'title', align: 'left'},
+            {name: 'parentId', label: 'Parent', field: 'parentId', align: 'left'},
+            {name: 'linkType', label: 'link Type', field: 'linkType', align: 'left'},
+            {name: 'menuName', label: 'Menu', field: 'menuName', align: 'left'},
             {name: 'actions', label: 'Actions', align: 'right'},
           ],
           pagination: {
@@ -155,7 +170,6 @@
         let params = {
           refresh: refresh,
           params: {
-            //include: 'category',
             filter: Object.assign({}, this.table.filter, this.table.filters),
             page: pagination.page,
             take: pagination.rowsPerPage,
@@ -177,7 +191,7 @@
       deleteItem(item) {
         this.$q.dialog({
           title: item.id+' - '+item.title,
-          message: 'Do you want delete this menuItems?',
+          message: 'Do you want delete this Item?',
           color: 'negative',
           ok: 'Delete',
           cancel: true
