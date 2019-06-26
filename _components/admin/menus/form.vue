@@ -167,7 +167,7 @@
         return {
           fields: {
             name: '',
-            is_default: 0,
+            is_default: null,
           },
           fieldsTranslatable: {
             title: '',
