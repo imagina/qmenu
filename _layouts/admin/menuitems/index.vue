@@ -36,6 +36,7 @@
               <div class="col-12 col-md-6 q-mt-sm text-right">
                 <!--Button new record-->
                 <q-btn
+                  @click="formItemShow = true; itemIdToEdit = false"
                   icon="fas fa-edit"
                   color="positive"
                   label="New Item"
@@ -83,6 +84,10 @@
       <!--Loading-->
       <inner-loading :visible="loading" />
     </div>
+    <!--Form category (create and/or update)-->
+    <form-menuitem v-model="formItemShow" @created="getDataTable(true)"
+               @updated="getDataTable(true)" :item-id="itemIdToEdit">
+    </form-menuitem>
   </div>
 </template>
 
@@ -90,6 +95,7 @@
   //Services
   import menuServices from '@imagina/qcommerce/_services/index';
   //Component
+  import formMenuitem  from '@imagina/qmenu/_components/admin/menuitems/form'
   import Treeselect from '@riophae/vue-treeselect'
   import '@riophae/vue-treeselect/dist/vue-treeselect.css'
   import innerLoading from 'src/components/master/innerLoading'
@@ -97,7 +103,8 @@
   export default {
     components: {
       Treeselect,
-      innerLoading
+      innerLoading,
+      formMenuitem
     },
     mounted() {
       this.$nextTick(function () {
@@ -106,6 +113,7 @@
     },
     data() {
       return {
+        loading: false,
         table: {
           data: [],
           columns: [
@@ -129,7 +137,10 @@
           filters: {},
           options: {}
         },
-        loading: false,
+        formItemShow: false,
+        dialogDeleteItem: false,
+        itemIdToEdit: false,
+        itemIdToDelete: false,
       }
     },
     methods: {
@@ -137,7 +148,7 @@
       getDataTable(refresh = false) {
         this.getdata({pagination: this.table.pagination}, refresh)
       },
-      //Get products
+      //Get menuItems
       getdata({pagination, filter}, refresh = false) {
         this.loading = true
         //Params to request
@@ -162,6 +173,27 @@
           this.$helper.alert.error('Failed: ' + error, 'bottom')
         })
       },
+      //Delete category
+      deleteItem(item) {
+        this.$q.dialog({
+          title: item.id+' - '+item.title,
+          message: 'Do you want delete this menuItems?',
+          color: 'negative',
+          ok: 'Delete',
+          cancel: true
+        }).then(data => {
+          this.loading = true
+          menuServices.crud.delete('apiRoutes.qmenu.menuItems', item.id).then(response => {
+            this.getDataTable(true)
+            this.$helper.alert.success('menuItems deleted')
+            this.dialogDeleteItem = false
+            this.loading = false
+          }).catch(error => {
+            this.loading = false
+            this.$helper.alert.error('Failed: ' + error, 'bottom')
+          })
+        }).catch(data => {})
+      }
     }
   }
 </script>

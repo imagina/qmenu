@@ -1,5 +1,5 @@
 <template>
-  <!--Modal with form to category-->
+  <!--Modal with form to Menu -->
   <q-modal
     id="formCategory"
     v-model="show"
@@ -149,24 +149,7 @@
       return {
         show: false,
         locale: _cloneDeep(this.dataLocale),
-        editorText: {
-          toolbar: [
-            ['bold', 'italic', 'strike', 'underline', 'removeFormat'],
-            ['link'],
-            [
-              {
-                label: 'Font Size',
-                icon: 'format_size',
-                fixedLabel: true,
-                fixedIcon: true,
-                list: 'no-icons',
-                options: ['size-1', 'size-2', 'size-3', 'size-4', 'size-5', 'size-6', 'size-7']
-              }
-            ],
-            ['quote', 'unordered', 'ordered'],
-            ['fullscreen']
-          ]
-        },
+        editorText: {},
         loading: false,
         status: [
           {label:'Active', id:1},
@@ -203,7 +186,7 @@
       //Init form
       async initForm() {
         this.loading = true
-        //If ther is category Id, request data, else set default data
+        //If ther is Menu Id, request data, else set default data
         if (this.itemId) await this.getDataItem()
         else this.locale = _cloneDeep(this.dataLocale)
         
@@ -211,7 +194,7 @@
         this.show = this.value//Assign props value to show modal
         this.loading = false
       },
-      //Get data category to update
+      //Get data Menu to update
       getDataItem() {
         return new Promise((resolve, reject) => {
           let configName = 'apiRoutes.qmenu.menus'
@@ -233,7 +216,7 @@
           })
         })
       },
-      //Create Category
+      //Create Menu
       createItem() {
         this.$refs.localeComponent.vTouch()//Validate component locales
         //Check validations
@@ -254,7 +237,7 @@
           this.$helper.alert.error('Please check required fields','bottom')
         }
       },
-      //Update Category
+      //Update Menu
       updateItem() {
         this.$refs.localeComponent.vTouch()//Validate component locales
         //Check validations
@@ -282,14 +265,6 @@
           response = {locale: this.locale.formValidations}
         return response
       },
-      //Complete slug Only when is creation
-      setSlug(){
-        if(!this.itemId){
-          let title = _cloneDeep(this.locale.formTemplate.title)
-          title = title.split(' ').join('-').toLowerCase()
-          this.locale.formTemplate.slug = _cloneDeep(title)
-        }
-      }
     }
   }
 </script>
