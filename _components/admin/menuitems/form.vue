@@ -117,18 +117,23 @@
                   :error="false"
                   v-if="locale.formTemplate.linkType == 'frontend'"
                   error-label="This field is required">
-                  <q-input
-                    v-model="locale.formTemplate.pageName"
-                    :stack-label="'Page Name'"/>
-                </q-field>
   
+                  <div class="input-title">Page Name</div>
+                  <treeselect
+                    :clearable="true"
+                    :options="pages"
+                    value-consists-of="BRANCH_PRIORITY"
+                    v-model="locale.formTemplate.pageName"
+                    placeholder=""/>
+                </q-field>
+                
                 
                 <q-field
                   :error="false"
                   error-label="This field is required">
                   <div class="input-title">Parent</div>
                   <treeselect
-                    :clearable="false"
+                    :clearable="true"
                     :options="this.menuItems"
                     value-consists-of="BRANCH_PRIORITY"
                     v-model="locale.formTemplate.parentId"
@@ -267,6 +272,7 @@
     },
     data() {
       return {
+        pages: [],
         show: false,
         locale: _cloneDeep(this.dataLocale),
         editorText: {},
@@ -300,7 +306,7 @@
             rgt: '',
             depth: '',
             //isRoot: '',
-            pageName: '',
+            pageName: null,
             icon: '',
           },
           fieldsTranslatable: {
@@ -326,6 +332,7 @@
         else this.locale = _cloneDeep(this.dataLocale)
         this.getMenus()//Optiene los menuItems
         this.getMenuItems()//Optiene los MenuItems
+        this.getPages()
         this.$v.$reset()//Reset validations
         this.show = this.value//Assign props value to show modal
         this.loading = false
@@ -386,6 +393,27 @@
             reject(true)
           })
         })
+      },
+      // get Pages
+       getPages(){
+        let result = []
+        let objPages = config('pages')
+        for (let pages in objPages) {
+          for (let item in objPages[pages]){
+            var id = objPages[pages][item].name
+            var label = objPages[pages][item].title
+            result.push({id, label})
+          }
+        }
+        this.pages =  this.arrayUnique(result)
+      },
+      // Deleta items Duplicates (Helper)
+       arrayUnique(arrayWithRepeats){
+         return arrayWithRepeats.filter((currentValue, currentIndex, newArray) => {
+          return newArray.findIndex(
+            valueOfArray =>JSON.stringify(valueOfArray) === JSON.stringify(currentValue)
+          ) === currentIndex
+        });
       },
       //Create menuItems
       createItem() {
