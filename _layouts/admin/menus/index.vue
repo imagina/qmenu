@@ -108,7 +108,6 @@
   import menuServices from '@imagina/qcommerce/_services/index';
   //Component
   import formMenu  from '@imagina/qmenu/_components/admin/menus/form'
-
   import Treeselect from '@riophae/vue-treeselect'
   import '@riophae/vue-treeselect/dist/vue-treeselect.css'
   import innerLoading from 'src/components/master/innerLoading'
