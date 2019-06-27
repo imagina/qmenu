@@ -1,5 +1,8 @@
+//import array from '@imagina/qhelper/_plugins/array'
+
 export const MENU_SUCCESS = (state, data) => {
   state.mainMenu = data
+  //state.mainMenu.menuitems = array.builTree(data.menuitems)
 };
 
 export const MENU_EMPTY = (state) => {

@@ -1,26 +1,35 @@
 /*Services*/
 import menuService from '@imagina/qmenu/_services/menu'
 import service from '@imagina/qmenu/_services/index'
+import {helper} from '@imagina/qhelper/_plugins/helper'
 
-/**
- * Request menu by ID
- * @param commit
- * @param dispatch
- * @param route
- * @returns {Promise<any>}
- * @constructor
- */
-export const MENU_MAIN = ({commit, dispatch}) => {
-  return new Promise((resolve, reject) => {
-    menuService.show(1).then((menu) => {
-      commit('MENU_SUCCESS', menu.data)
-      resolve(menu)
-    }).catch((error) => {
-      reject(error)
-    })
+export const MENU_MAIN = ({ commit, state, dispatch }, criteria, params = {}) => {
+   params = {
+    refresh: true,
+    params: {
+      include:'menuitems'
+    }
+  }
+  return new Promise(async (resolve, reject) => {
+    await service.crud.show('apiRoutes.qmenu.menus', criteria, params)
+      .then(response => {
+        commit('MENU_SUCCESS',  response.data)
+        helper.storage.set('menu.main',response.data)
+        resolve(true)
+      })
+      .catch(error=>{
+        reject(error)
+      })
   })
 }
+
 export const GET_MENUS = ({ commit, state, dispatch }, params = {}) => {
+  params = {
+    refresh: true,
+    params: {
+      include:'menuitems'
+    }
+  }
   return new Promise(async (resolve, reject) => {
     await service.crud.index('apiRoutes.qmenu.menus', params)
       .then(response => {
