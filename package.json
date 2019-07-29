@@ -1,21 +1,17 @@
 {
-  "author": "http://imaginacolombia.com/",
+  "author": "http://imaginacolombia.com",
   "bugs": {
     "url": "https://github.com/imagina/qmenu/issues"
   },
   "bundleDependencies": false,
-  "dependencies": {
-    "axios": "^0.18.0",
-    "localforage": "^1.7.2"
-  },
   "deprecated": false,
-  "description": "Menu components for use in quasar",
+  "description": "Package to use Menu in Base Quasar 1.0.0",
   "homepage": "https://github.com/imagina/qmenu#readme",
   "keywords": [
     "quasar",
     "laravel",
     "asgardcms",
-    "passport"
+    "qmenu"
   ],
   "license": "ISC",
   "main": "index.js",
@@ -27,5 +23,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "0.0.4"
+  "version": "1.0.0"
 }

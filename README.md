@@ -1,59 +1,20 @@
-##Module Qmenu
-Module with components for load a menu and component for search
-#
+## QMENU  | 1.0.0
 
-###Component: menu-desktop
-- ####Usage 
-  ```js
-  import menuDesktop from '@imagina/qmenu/_components/menu-desktop';
+## Installation
 
-  export default {
-    ...
-    components: {
-      menuDesktop
-    }
-    ...
-  };
-  ```
-  
-  ```html
-  <menu-desktop class="desktop-only" id-menu="[id menu]"></menu-desktop>
-  ```
- #
+`` npm i @imagina/qmenu@1.0.0 ``
 
-###Component: menu-mobile
-- ####Usage 
-  ```js
-  import menuMobile from '@imagina/qmenu/_components/menu-mobile';
+## API Routes
 
-  export default {
-    ...
-    components: {
-      menuMobile
-    }
-    ...
-  };
-  ```
-  
-  ```html
-  <menu-mobile class="mobile-only" id-menu="[id menu]"></menu-mobile>
-  ```
-#
+| ENTITY  | ROUTE |
+| ------------- | ------------- |
+| Menus | apiRoutes.qmenu.menus |
+| Menu Item | apiRoutes.qmenu.menuItems |
 
-###Component: menu-footer
-- ####Usage 
-  ```js
-  import menuFooter from '@imagina/qmenu/_components/menu-footer';
+## Pages
+- ### Back-End
 
-  export default {
-    ...
-    components: {
-      menuFooter
-    }
-    ...
-  };
-  ```
-  
-  ```html
-  <menu-footer id-menu="[id menu]"></menu-footer>
-  ```
+  | PAGE | NAME |
+  | ------------- | ------------- |
+  | Menus | qmenu.admin.menus |
+  | Menu Items | qmenu.admin.menu.items |
