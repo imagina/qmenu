@@ -1,5 +1,5 @@
 export default {
   adminGroup : 'Menú',
-  adminMenus : 'Lista de Menús',
+  adminMenus : 'Menús',
   adminMenuItems : 'Elementos de Menú'
 }

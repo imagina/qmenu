@@ -4,5 +4,19 @@ export default {
   newItem: 'New Menu Item',
   updateItem: 'Update Menu Item',
   sameTab : 'Same Tab',
-  newTab : 'New Tab'
+  newTab : 'New Tab',
+  form:{
+    url: 'URL',
+    uri: 'URI',
+    class: 'CSS class',
+    target: 'Target',
+    sameTab: 'Same Tab',
+    newTab: 'New Tab',
+    pageName: 'Page Name',
+    typeLink: 'Type Link',
+    page: 'Page',
+    internal: 'Page Internal',
+    external: 'Page External',
+    frontend: 'Frontend Page',
+  }
 }
