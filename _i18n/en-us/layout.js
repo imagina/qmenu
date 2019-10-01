@@ -5,6 +5,7 @@ export default {
   updateItem: 'Update Menu Item',
   sameTab : 'Same Tab',
   newTab : 'New Tab',
+  updateOrder: 'Update Order',
   form:{
     url: 'URL',
     uri: 'URI',

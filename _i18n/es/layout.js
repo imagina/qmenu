@@ -5,6 +5,7 @@ export default {
   updateItem: 'Actualizar Elemento de Menu',
   sameTab : 'Misma pestaña',
   newTab : 'Nueva Pestaña',
+  updateOrder: 'Actualizar Orden',
   form:{
     url: 'URL',
     uri: 'URI',
