@@ -43,13 +43,24 @@
                 align: 'left'
               },
               {
-                name: 'actions', label: this.$tr('ui.form.actions'), align: 'center'
+                name: 'actions', label: this.$tr('ui.form.actions'), align: 'right'
               },
             ],
+            filters:{
+              status: {
+                label: this.$tr('ui.form.status'),
+                value: null,
+                type: 'select',
+                options: [
+                  {label: this.$tr('ui.label.enabled'), id: 1},
+                  {label: this.$tr('ui.label.disabled'), id: 0},
+                ]
+              }
+            }
           },
           update: {
             title: this.$tr('qmenu.layout.updateMenu'),
-            requestParams: {include: ''}
+            to : 'qmenu.admin.menus.show'
           },
           delete: true,
           formLeft: {
