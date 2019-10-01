@@ -10,14 +10,14 @@
         <q-btn
           :to="{name: 'qmenu.admin.menu.create', params: {menuId: this.$route.params.id}}"
           icon="fas fa-edit"
-          label="new Redcord"
+          :label="$tr('qmenu.layout.newItem')"
           color="green"
           class="q-ml-xs"/>
         <q-btn
           v-if="menuItems.length"
           @click="updateOrder"
           icon="fas fa-edit"
-          label="Update Redcord"
+          :label="$tr('qmenu.layout.updateOrder')"
           color="red"
           class="q-ml-xs"/>
         <q-btn
@@ -31,25 +31,21 @@
         </q-btn>
       </div>
     </div>
+    
     <div class="col-md-12">
       <nestedMenuItems :menuItems="menuItems"/>
     </div>
     
-    <modalNew
-      :opened="modalNewItem"
-      @closeModal="modalNewItem = false"/>
     <inner-loading :visible="loading"/>
   </div>
 </template>
 
 <script>
   import nestedMenuItems from '@imagina/qmenu/_components/admin/menuitems/nested'
-  import modalNew from '@imagina/qmenu/_components/admin/menuitems/modalNew'
   
   export default {
     components:{
       nestedMenuItems,
-      modalNew,
     },
     data(){
       return {
@@ -64,6 +60,7 @@
     created() {
       this.$nextTick(() => {
         this.getItems()
+        this.$root.$on('updateMenuItems', this.handlerUpdateMenuItems)
       })
     },
     methods:{
@@ -73,7 +70,11 @@
           refresh: refresh,
           params: {
             filter: {
-              menu: this.$route.params.id
+              menu: this.$route.params.id,
+              order:{
+                field: 'position',
+                way: 'desc'
+              }
             }
           },
         }
@@ -83,16 +84,25 @@
           this.loading = false
         })
         .catch(error => {
+          this.$alert.error({message: this.$tr('ui.message.errorRequest'), pos: 'bottom'})
           this.loading = false
         })
       },
       updateOrder(){
         let newdata = []
         this.treeToArray(this.menuItems, newdata)
-        console.warn('Implements in backend')
-        /*.... to send to service data with new order and new parent*/
+        this.loading = true
+        this.$crud.create('apiRoutes.qmenu.menuItemsOrdener',{menuitems: newdata})
+        .then( response => {
+          this.loading = false
+          this.$alert.success({message: `${this.$tr('ui.message.recordUpdated')}`})
+        })
+        .catch( error => {
+          this.loading = false
+          this.$alert.error({message: this.$tr('ui.message.errorRequest'), pos: 'bottom'})
+        })
       },
-      arrayToTree( elements, parentId = null ) {
+      arrayToTree( elements, parentId = 0 ) {
         return elements.filter( element => {
           if (element.parentId == parentId) {
             return element['children'] = this.arrayToTree(elements, element.id)
@@ -108,6 +118,9 @@
           if (element.children.length) this.treeToArray(element.children, response, element.id)
         })
       },
+      handlerUpdateMenuItems(event){
+        this.getItems()
+      }
     }
   }
 </script>
