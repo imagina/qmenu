@@ -1,8 +1,8 @@
-## QMENU  | 1.0.2
+## QMENU  | 2.0.0
 
 ## Installation
 
-`` npm i @imagina/qmenu@1.0.2 ``
+`` npm i @imagina/qmenu@2.0.0 ``
 
 ## API Routes
 

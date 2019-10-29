@@ -5,7 +5,7 @@
       crudData() {
         return {
           apiRoute: 'apiRoutes.qmenu.menus',
-          permission: 'imenu.menus',
+          permission: 'menu.menus',
           create: {
             title: this.$tr('qmenu.layout.newMenu'),
           },
@@ -46,21 +46,21 @@
                 name: 'actions', label: this.$tr('ui.form.actions'), align: 'right'
               },
             ],
-            filters:{
+            filters: {
               status: {
                 label: this.$tr('ui.form.status'),
                 value: null,
                 type: 'select',
                 options: [
-                  {label: this.$tr('ui.label.enabled'), id: 1},
-                  {label: this.$tr('ui.label.disabled'), id: 0},
+                  {label: this.$tr('ui.label.enabled'), value: 1},
+                  {label: this.$tr('ui.label.disabled'), value: 0},
                 ]
               }
             }
           },
           update: {
             title: this.$tr('qmenu.layout.updateMenu'),
-            to : 'qmenu.admin.menus.show'
+            to: 'qmenu.admin.menus.show'
           },
           delete: true,
           formLeft: {
@@ -68,32 +68,32 @@
               label: this.$tr('ui.form.title'),
               value: null,
               type: 'text',
-              isRequired: true,
-              isTranslatable : true
+              rules: [val => !!val || this.$tr('ui.message.fieldRequired')],
+              isTranslatable: true
             },
             name: {
               label: this.$tr('ui.form.name'),
               value: null,
               type: 'text',
-              isRequired: true,
+              rules: [val => !!val || this.$tr('ui.message.fieldRequired')],
             },
             status: {
               label: this.$tr('ui.form.status'),
-              value: 1,
+              value: '1',
               type: 'select',
-              isTranslatable : true,
+              isTranslatable: true,
               options: [
-                {label: this.$tr('ui.label.enabled'), id: 1},
-                {label: this.$tr('ui.label.disabled'), id: 0},
+                {label: this.$tr('ui.label.enabled'), value: '1'},
+                {label: this.$tr('ui.label.disabled'), value: '0'},
               ]
             },
             isDefault: {
               label: this.$tr('ui.form.default'),
-              value: 0,
+              value: '0',
               type: 'select',
               options: [
-                {label: this.$tr('ui.label.yes'), id: 1},
-                {label: this.$tr('ui.label.no'), id: 0},
+                {label: this.$tr('ui.label.yes'), value: '1'},
+                {label: this.$tr('ui.label.no'), value: '0'},
               ]
             },
           },

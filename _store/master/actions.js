@@ -1,6 +1,5 @@
 /*Services*/
-import menuService from '@imagina/qmenu/_services/menu'
-import service from '@imagina/qmenu/_services/index'
+import crud from '@imagina/qcrud/_services/baseService'
 import {helper} from '@imagina/qhelper/_plugins/helper'
 
 export const MENU_MAIN = ({ commit, state, dispatch }, criteria, params = {}) => {
@@ -11,7 +10,7 @@ export const MENU_MAIN = ({ commit, state, dispatch }, criteria, params = {}) =>
     }
   }
   return new Promise(async (resolve, reject) => {
-    await service.crud.show('apiRoutes.qmenu.menus', criteria, params)
+    await crud.show('apiRoutes.qmenu.menus', criteria, params)
       .then(response => {
         commit('MENU_SUCCESS',  response.data)
         helper.storage.set('menu.main',response.data)
@@ -31,7 +30,7 @@ export const GET_MENUS = ({ commit, state, dispatch }, params = {}) => {
     }
   }
   return new Promise(async (resolve, reject) => {
-    await service.crud.index('apiRoutes.qmenu.menus', params)
+    await crud.index('apiRoutes.qmenu.menus', params)
       .then(response => {
       commit('SET_MENUS',  response.data)
   resolve(true)
@@ -44,7 +43,7 @@ export const GET_MENUS = ({ commit, state, dispatch }, params = {}) => {
 
 export const GET_MENU_ITEMS = ({ commit, state, dispatch }, params = {}) => {
   return new Promise(async (resolve, reject) => {
-    await service.crud.index('apiRoutes.qmenu.menuItems', params)
+    await crud.index('apiRoutes.qmenu.menuItems', params)
       .then(response => {
       commit('SET_MENU_ITEMS', response.data)
   resolve(true)

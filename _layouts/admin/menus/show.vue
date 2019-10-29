@@ -1,19 +1,13 @@
 <template>
-  <div
-    id="pageId"
-    class="q-layout-page layout-padding">
-    <div class=" q-mb-lg backend-page">
-      <div class="row gutter-x-sm">
-        <div class="col-md-7">
-          <div class="box">
-            <indexItemsByMenu/>
-          </div>
-        </div>
-        <div class="col-md-5">
-          <div class="box">
-            <formMenu/>
-          </div>
-        </div>
+  <div class="backend-page row q-col-gutter-x-md">
+    <div class="col-md-5">
+      <div class="box">
+        <formMenu/>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <div class="box">
+        <indexItemsByMenu/>
       </div>
     </div>
   </div>
@@ -23,9 +17,9 @@
   // Components
   import formMenu from '@imagina/qmenu/_components/admin/menus/form'
   import indexItemsByMenu from '@imagina/qmenu/_components/admin/menuitems/indexItemsByMenu'
-  
+
   export default {
-    components:{
+    components: {
       formMenu,
       indexItemsByMenu
     }

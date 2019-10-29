@@ -1,69 +1,47 @@
 <template>
   <div class="row gutter-x-sm relative-position" v-if="success">
-  
+
     <div class="col-12">
-      <locales v-model="locale" ref="localeComponent" @validate="$v.$touch()"/>
+      <locales v-model="locale" ref="localeComponent" :form="$refs.formContent"/>
     </div>
-  
-    <div class="col-12" v-if="locale.success">
-  
-      <q-field
-        class="q-mt-sm"
-        :error="$v.locale.formTemplate.name.$error"
-        :error-label="$tr('ui.message.fieldRequired')">
-        <q-input
-          v-model="locale.formTemplate.name"
-          :stack-label="`${$tr('ui.form.name')}*`"/>
-      </q-field>
-  
-      <q-field
-        class="q-mt-sm"
-        :error="$v.locale.formTemplate.title.$error"
-        :error-label="$tr('ui.message.fieldRequired')">
-        <q-input
-          v-model="locale.formTemplate.title"
-          :stack-label="`${$tr('ui.form.title')} (${locale.language})*`"/>
-      </q-field>
-  
-      <div class="input-title">{{$tr('ui.form.status')}} ({{locale.language}})</div>
-      <tree-select
-        v-model="locale.formTemplate.status"
-        :clearable="true"
-        :options="[
-          {label: this.$tr('ui.label.enabled'), id: 1},
-          {label: this.$tr('ui.label.disabled'), id: 0},
-        ]"
-        placeholder=""/>
-  
-      <div class="input-title">{{$tr('ui.form.default')}}</div>
-      <tree-select
-        v-model="locale.formTemplate.isDefault"
-        :clearable="true"
-        :options="[
-          {label: this.$tr('ui.label.yes'), id: 1},
-          {label: this.$tr('ui.label.no'), id: 0},
-        ]"
-        placeholder=""/>
-  
-      <q-btn
-        class="q-mt-md"
-        v-if="itemId"
-        color="positive" :loading="loading"
-        icon="fas fa-edit" :label="$tr('ui.label.update')" @click="updateItem()"
-        rounded/>
-      
-    </div>
+
+    <!--Form-->
+    <q-form autocorrect="off" autocomplete="off" ref="formContent" class="full-width q-my-sm" v-if="locale.success"
+            @submit="updateItem()" @validation-error="$alert.error($tr('ui.message.formInvalid'))">
+
+      <q-input outlined dense v-model="locale.formTemplate.name" :label="`${$tr('ui.form.name')}*`"
+               :rules="[val => !!val || this.$tr('ui.message.fieldRequired')]"/>
+
+      <q-input outlined dense v-model="locale.formTemplate.title"
+               :label="`${$tr('ui.form.title')} (${locale.language})*`"
+               :rules="[val => !!val || this.$tr('ui.message.fieldRequired')]"/>
+
+      <q-select :label="`${$tr('ui.form.status')} (${locale.language})`"
+                v-model="locale.formTemplate.status"
+                :options="[
+                  {label: this.$tr('ui.label.enabled'), value: '1'},
+                  {label: this.$tr('ui.label.disabled'), value: '0'}
+                ]" outlined dense emit-value map-options/>
+
+      <q-select :label="$tr('ui.form.default')"
+                v-model="locale.formTemplate.isDefault"
+                :options="[
+                  {label: this.$tr('ui.label.yes'), value: '1'},
+                  {label: this.$tr('ui.label.no'), value: '0'}
+                ]" outlined dense emit-value map-options/>
+
+      <q-btn class="float-right" v-if="itemId" color="positive" :loading="loading"
+             icon="fas fa-save" :label="$tr('ui.label.save')" type="submit" rounded/>
+    </q-form>
     <inner-loading :visible="loading"/>
   </div>
 </template>
 
 <script>
   import locales from '@imagina/qsite/_components/locales'
-  import _cloneDeep from 'lodash.clonedeep'
-  import {required} from 'vuelidate/lib/validators'
-  
+
   export default {
-    components:{
+    components: {
       locales
     },
     watch: {
@@ -75,9 +53,6 @@
       this.$nextTick(function () {
         this.initForm()
       })
-    },
-    validations() {
-      return this.getObjectValidation()
     },
     data() {
       return {
@@ -92,15 +67,11 @@
         return {
           fields: {
             name: '',
-            isDefault: 0,
+            isDefault: '0',
           },
           fieldsTranslatable: {
             title: '',
-            status: 1,
-          },
-          validations: {
-            title:{ required },
-            name: { required }
+            status: '1',
           }
         }
       }
@@ -109,17 +80,16 @@
       async initForm() {
         this.loading = true
         this.success = false
-        this.locale = _cloneDeep(this.dataLocale)
+        this.locale = this.$clone(this.dataLocale)
         this.itemId = this.$route.params.id
         if (this.locale.success) this.$refs.localeComponent.vReset()
         await this.getData()
-        this.$v.$reset()
         this.success = true
         this.loading = false
       },
       getData() {
         return new Promise((resolve, reject) => {
-          const itemId = _cloneDeep(this.itemId)
+          const itemId = this.$clone(this.itemId)
           if (itemId) {
             let configName = 'apiRoutes.qmenu.menus'
             //Params
@@ -144,13 +114,11 @@
         })
       },
       orderDataItemToLocale(data) {
-        let orderData = _cloneDeep(data)
-        this.locale.form = _cloneDeep(orderData)
+        let orderData = this.$clone(data)
+        this.locale.form = this.$clone(orderData)
       },
-      updateItem() {
-        this.$refs.localeComponent.vTouch()//Validate component locales
-        //Check validations
-        if (!this.$v.$error) {
+      async updateItem() {
+        if (await this.$refs.localeComponent.validateForm()) {
           this.loading = true
           let configName = 'apiRoutes.qmenu.menus'
           this.$crud.update(configName, this.itemId, this.getDataForm()).then(response => {
@@ -161,8 +129,6 @@
             this.loading = false
             this.$alert.error({message: this.$tr('ui.message.recordNoUpdated'), pos: 'bottom'})
           })
-        } else {
-          this.$alert.error({message: this.$tr('ui.message.formInvalid'), pos: 'bottom'})
         }
       },
       getDataForm() {
@@ -173,12 +139,6 @@
             delete response[item]
         }
         response.selectable = JSON.stringify(response.selectable)
-        return response
-      },
-      getObjectValidation() {
-        let response = {}
-        if (this.locale && this.locale.formValidations)
-          response = {locale: this.locale.formValidations}
         return response
       },
     }
