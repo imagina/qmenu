@@ -61,12 +61,10 @@
 </template>
 
 <script>
-  import locales from '@imagina/qsite/_components/locales'
   import {required} from 'vuelidate/lib/validators'
 
   export default {
     components: {
-      locales
     },
     watch: {
       $route(to, from) {

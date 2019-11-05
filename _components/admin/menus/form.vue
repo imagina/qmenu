@@ -38,11 +38,9 @@
 </template>
 
 <script>
-  import locales from '@imagina/qsite/_components/locales'
 
   export default {
     components: {
-      locales
     },
     watch: {
       $route(to, from) {
