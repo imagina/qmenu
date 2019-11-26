@@ -1,9 +1,15 @@
 <template></template>
 <script>
   export default {
+    data() {
+      return {
+        crudId: this.$uid()
+      }
+    },
     computed: {
       crudData() {
         return {
+          crudId: this.crudId,
           apiRoute: 'apiRoutes.qmenu.menus',
           permission: 'menu.menus',
           create: {
@@ -48,13 +54,15 @@
             ],
             filters: {
               status: {
-                label: this.$tr('ui.form.status'),
                 value: null,
                 type: 'select',
-                options: [
-                  {label: this.$tr('ui.label.enabled'), value: 1},
-                  {label: this.$tr('ui.label.disabled'), value: 0},
-                ]
+                props: {
+                  label: this.$tr('ui.form.status'),
+                  options: [
+                    {label: this.$tr('ui.label.enabled'), value: 1},
+                    {label: this.$tr('ui.label.disabled'), value: 0},
+                  ]
+                }
               }
             }
           },
@@ -65,39 +73,51 @@
           delete: true,
           formLeft: {
             title: {
-              label: this.$tr('ui.form.title'),
               value: null,
-              type: 'text',
-              rules: [val => !!val || this.$tr('ui.message.fieldRequired')],
-              isTranslatable: true
+              type: 'input',
+              isTranslatable: true,
+              props : {
+                label: this.$tr('ui.form.title'),
+                rules: [val => !!val || this.$tr('ui.message.fieldRequired')],
+              }
             },
             name: {
-              label: this.$tr('ui.form.name'),
               value: null,
-              type: 'text',
-              rules: [val => !!val || this.$tr('ui.message.fieldRequired')],
+              type: 'input',
+              props : {
+                label: this.$tr('ui.form.name'),
+                rules: [val => !!val || this.$tr('ui.message.fieldRequired')],
+              }
             },
             status: {
-              label: this.$tr('ui.form.status'),
               value: '1',
               type: 'select',
               isTranslatable: true,
-              options: [
-                {label: this.$tr('ui.label.enabled'), value: '1'},
-                {label: this.$tr('ui.label.disabled'), value: '0'},
-              ]
+              props : {
+                label: this.$tr('ui.form.status'),
+                options: [
+                  {label: this.$tr('ui.label.enabled'), value: '1'},
+                  {label: this.$tr('ui.label.disabled'), value: '0'},
+                ]
+              }
             },
             isDefault: {
-              label: this.$tr('ui.form.default'),
               value: '0',
               type: 'select',
-              options: [
-                {label: this.$tr('ui.label.yes'), value: '1'},
-                {label: this.$tr('ui.label.no'), value: '0'},
-              ]
+              props : {
+                label: this.$tr('ui.form.default'),
+                options: [
+                  {label: this.$tr('ui.label.yes'), value: '1'},
+                  {label: this.$tr('ui.label.no'), value: '0'},
+                ]
+              }
             },
           },
         }
+      },
+      //Crud info
+      crudInfo() {
+        return this.$store.state.qcrudComponent.component[this.crudId] || {}
       }
     },
   }
