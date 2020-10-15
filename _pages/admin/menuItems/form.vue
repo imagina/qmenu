@@ -15,11 +15,14 @@
                      :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
                      :label="`${$tr('ui.form.title')} (${locale.language})*`"/>
 
+            <dynamic-field v-model="locale.formTemplate.pageId" :field="dynamicFields.pages"
+                           v-if="locale.formTemplate.linkType == 'page'"/>
+
             <q-input outlined dense v-model="locale.formTemplate.url" v-if="locale.formTemplate.linkType == 'external'"
                      :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
                      :label="`${$tr('qmenu.layout.form.url')} (${locale.language})*`"/>
 
-            <q-input outlined dense v-model="locale.formTemplate.uri" v-else
+            <q-input outlined dense v-model="locale.formTemplate.uri" v-if="locale.formTemplate.linkType == 'internal'"
                      :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
                      :label="`${$tr('qmenu.layout.form.uri')} (${locale.language})*`"/>
 
@@ -64,8 +67,7 @@
   import {required} from 'vuelidate/lib/validators'
 
   export default {
-    components: {
-    },
+    components: {},
     watch: {
       $route(to, from) {
         this.initForm()
@@ -97,9 +99,9 @@
           {label: this.$tr('ui.label.disabled'), value: '0'},
         ],
         linkTypes: [
+          {label: this.$tr('qmenu.layout.form.page'), value: 'page'},
           {label: this.$tr('qmenu.layout.form.internal'), value: 'internal'},
           {label: this.$tr('qmenu.layout.form.external'), value: 'external'}
-          //{label: this.$tr('qmenu.layout.form.page'), value: 'page'},
           //{label: this.$tr('qmenu.layout.form.frontend'), value: 'frontend'},
         ]
       }
@@ -125,6 +127,21 @@
             url: '',
             uri: '',
             status: '1',
+          }
+        }
+      },
+      dynamicFields() {
+        return {
+          pages: {
+            value: null,
+            type: 'select',
+            props: {
+              label: this.$tr('ui.form.page'),
+              rules: [val => !!val || this.$tr('ui.message.fieldRequired')]
+            },
+            loadOptions: {
+              apiRoute: 'apiRoutes.qpage.pages'
+            }
           }
         }
       }
@@ -216,7 +233,7 @@
             params: {
               filter: {
                 allTranslations: true,
-                menu : this.$route.params.menuId
+                menu: this.$route.params.menuId
               }
             },
           }
