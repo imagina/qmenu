@@ -1,7 +1,7 @@
 export default {
 //Menu List
   menus: {
-    permission: 'menu.menus.index',
+    permission: 'menu.menus.manage',
     activated: true,
     path: '/menus',
     name: 'qmenu.admin.menus',
