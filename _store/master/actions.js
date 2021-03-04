@@ -1,6 +1,6 @@
 /*Services*/
 import crud from '@imagina/qcrud/_services/baseService'
-import {helper} from '@imagina/qhelper/_plugins/helper'
+import helper from '@imagina/qsite/_plugins/helper'
 
 export const MENU_MAIN = ({ commit, state, dispatch }, criteria, params = {}) => {
    params = {
