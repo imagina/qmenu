@@ -10,6 +10,7 @@
       crudData() {
         return {
           crudId: this.crudId,
+          entityName: config("main.qmenu.entityNames.menu"),
           apiRoute: 'apiRoutes.qmenu.menus',
           permission: 'menu.menus',
           create: {
