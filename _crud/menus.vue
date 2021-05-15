@@ -13,6 +13,7 @@
           entityName: config("main.qmenu.entityNames.menu"),
           apiRoute: 'apiRoutes.qmenu.menus',
           permission: 'menu.menus',
+          extraFormFields: 'menu.crud-fields.menus',
           create: {
             title: this.$tr('qmenu.layout.newMenu'),
           },
