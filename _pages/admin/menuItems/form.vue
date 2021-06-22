@@ -50,9 +50,9 @@
           </div>
           <!--Button Actions-->
           <div class="col-12 text-right">
-            <q-btn v-if="itemId" color="positive" :loading="loading" icon="fas fa-edit"
+            <q-btn v-if="itemId" color="green" :loading="loading" icon="fas fa-edit"
                    :label="$tr('ui.label.update')" type="submit" rounded/>
-            <q-btn v-else color="positive" :loading="loading" icon="fas fa-edit"
+            <q-btn v-else color="green" :loading="loading" icon="fas fa-edit"
                    :label="$tr('ui.label.create')" type="submit" rounded/>
           </div>
         </q-form>

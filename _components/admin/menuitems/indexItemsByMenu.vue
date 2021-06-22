@@ -5,7 +5,7 @@
         <q-btn :to="{name: 'qmenu.admin.menus'}" icon="fas fa-arrow-alt-circle-left"
                color="primary" class="q-ml-xs"/>
         <q-btn :to="{name: 'qmenu.admin.menu.create', params: {menuId: $route.params.id}}" icon="fas fa-edit"
-               :label="$tr('qmenu.layout.newItem')" color="positive" class="q-ml-xs"/>
+               :label="$tr('qmenu.layout.newItem')" color="green" class="q-ml-xs"/>
         <q-btn @click="getItems(true)" icon="fas fa-sync-alt" color="info" class="q-ml-xs">
           <q-tooltip :delay="300">
             {{$tr('ui.label.refresh')}}
@@ -20,7 +20,7 @@
 
     <div class="col-12 text-right q-mt-sm">
       <q-btn v-if="menuItems.length" @click="updateOrder" icon="fas fa-save" :label="$tr('ui.label.save')"
-             color="positive" class="q-ml-xs"/>
+             color="green" class="q-ml-xs"/>
     </div>
 
     <inner-loading :visible="loading"/>

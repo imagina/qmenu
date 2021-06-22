@@ -20,12 +20,12 @@
               icon="fas fa-pen"
               size="xs"
               class="q-mr-sm"
-              color="positive"/>
+              color="green"/>
             <q-btn
               @click="dialogDeleteItem = true; itemIdToDelete = menuItem"
               icon="fas fa-trash-alt"
               size="xs"
-              color="negative"/>
+              color="red"/>
           </div>
           <div class="col-12">
             <q-separator/>
@@ -40,7 +40,7 @@
     <q-dialog v-model="dialogDeleteItem">
       <q-card class="backend-page">
         <q-card-section>
-          <h5 class="q-ma-none text-negative">{{itemIdToDelete.label}}</h5>
+          <h5 class="q-ma-none text-red">{{itemIdToDelete.label}}</h5>
           {{$tr('ui.message.deleteRecord')}}
         </q-card-section>
 
@@ -48,7 +48,7 @@
           <!--Button cancel-->
           <q-btn color="blue-grey" label="Cancel" @click="dialogDeleteItem = false"/>
           <!--Button confirm delete category-->
-          <q-btn color="negative" icon="fas fa-trash-alt"
+          <q-btn color="red" icon="fas fa-trash-alt"
                  label="Delete" @click="deleteItem()"/>
         </q-card-actions>
       </q-card>

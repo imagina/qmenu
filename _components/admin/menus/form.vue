@@ -29,7 +29,7 @@
                   {label: this.$tr('ui.label.no'), value: '0'}
                 ]" outlined dense emit-value map-options/>
 
-        <q-btn class="float-right" v-if="itemId" color="positive" :loading="loading" unelevated
+        <q-btn class="float-right" v-if="itemId" color="green" :loading="loading" unelevated
                icon="fas fa-save" :label="$tr('ui.label.save')" type="submit" rounded/>
       </div>
     </q-form>
