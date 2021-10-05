@@ -4,7 +4,7 @@
     <!--Form-->
     <q-form autocorrect="off" autocomplete="off" ref="formContent" class="full-width q-my-sm"
             @submit="updateItem()" @validation-error="$alert.error($tr('ui.message.formInvalid'))">
-      <div class="col-12">
+      <div class="col-12 q-mb-md">
         <locales v-model="locale" ref="localeComponent" :form="$refs.formContent"/>
       </div>
       <div v-if="locale.success">

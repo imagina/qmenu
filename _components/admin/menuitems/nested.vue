@@ -20,11 +20,15 @@
               icon="fas fa-pen"
               size="xs"
               class="q-mr-sm"
+              rounded
+              unelevated
               color="green"/>
             <q-btn
               @click="dialogDeleteItem = true; itemIdToDelete = menuItem"
               icon="fas fa-trash-alt"
               size="xs"
+              rounded
+              unelevated
               color="red"/>
           </div>
           <div class="col-12">

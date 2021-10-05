@@ -2,11 +2,9 @@
   <div class="row gutter-y-sm relative-position">
     <div class="col-md-12 ">
       <div class="float-right">
-        <q-btn :to="{name: 'qmenu.admin.menus'}" icon="fas fa-arrow-alt-circle-left"
-               color="primary" class="q-ml-xs"/>
-        <q-btn :to="{name: 'qmenu.admin.menu.create', params: {menuId: $route.params.id}}" icon="fas fa-edit"
-               :label="$tr('qmenu.layout.newItem')" color="green" class="q-ml-xs"/>
-        <q-btn @click="getItems(true)" icon="fas fa-sync-alt" color="info" class="q-ml-xs">
+        <q-btn :to="{name: 'qmenu.admin.menu.create', params: {menuId: $route.params.id}}" icon="fas fa-plus-circle"
+               :label="$tr('qmenu.layout.newItem')" color="green" class="q-ml-xs" rounded outline/>
+        <q-btn @click="getItems(true)" icon="fas fa-sync-alt" color="blue-grey" class="q-ml-xs" round outline>
           <q-tooltip :delay="300">
             {{$tr('ui.label.refresh')}}
           </q-tooltip>
@@ -20,7 +18,7 @@
 
     <div class="col-12 text-right q-mt-sm">
       <q-btn v-if="menuItems.length" @click="updateOrder" icon="fas fa-save" :label="$tr('ui.label.save')"
-             color="green" class="q-ml-xs"/>
+             color="green" class="q-ml-xs" rounded unelevated/>
     </div>
 
     <inner-loading :visible="loading"/>

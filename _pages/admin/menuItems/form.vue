@@ -18,6 +18,9 @@
             <dynamic-field v-model="locale.formTemplate.pageId" :field="dynamicFields.pages"
                            v-if="locale.formTemplate.linkType == 'page'"/>
 
+            <dynamic-field v-model="locale.formTemplate.description" :field="dynamicFields.description"
+                           :language="locale.language"/>
+
             <q-input data-testid="url" outlined dense v-model="locale.formTemplate.url" v-if="locale.formTemplate.linkType == 'external'"
                      :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
                      :label="`${$tr('qmenu.layout.form.url')} (${locale.language})*`"/>
@@ -51,9 +54,9 @@
           <!--Button Actions-->
           <div class="col-12 text-right">
             <q-btn v-if="itemId" color="green" :loading="loading" icon="fas fa-edit"
-                   :label="$tr('ui.label.update')" type="submit" rounded/>
+                   :label="$tr('ui.label.update')" type="submit" rounded unelevated/>
             <q-btn v-else color="green" :loading="loading" icon="fas fa-edit"
-                   :label="$tr('ui.label.create')" type="submit" rounded/>
+                   :label="$tr('ui.label.create')" type="submit" rounded unelevated/>
           </div>
         </q-form>
       </div>
@@ -127,6 +130,7 @@
             url: '',
             uri: '',
             status: '1',
+            description : null
           }
         }
       },
@@ -143,7 +147,17 @@
             loadOptions: {
               apiRoute: 'apiRoutes.qpage.pages'
             }
-          }
+          },
+          description: {
+            value: '',
+            type: 'input',
+            isTranslatable: true,
+            props: {
+              label: `${this.$tr('ui.form.description')}`,
+              type: 'textarea',
+              rows: "3",
+            },
+          },
         }
       }
     },
