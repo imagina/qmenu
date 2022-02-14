@@ -3,10 +3,10 @@
     <div class="col-md-12 ">
       <div class="float-right">
         <q-btn :to="{name: 'qmenu.admin.menu.create', params: {menuId: $route.params.id}}" icon="fas fa-plus-circle"
-               :label="$tr('qmenu.layout.newItem')" color="green" class="q-ml-xs" rounded outline/>
+               :label="$tr('menu.cms.newItem')" color="green" class="q-ml-xs" rounded outline/>
         <q-btn @click="getItems(true)" icon="fas fa-sync-alt" color="blue-grey" class="q-ml-xs" round outline>
           <q-tooltip :delay="300">
-            {{$tr('ui.label.refresh')}}
+            {{$tr('isite.cms.label.refresh')}}
           </q-tooltip>
         </q-btn>
       </div>
@@ -17,7 +17,7 @@
     </div>
 
     <div class="col-12 text-right q-mt-sm">
-      <q-btn v-if="menuItems.length" @click="updateOrder" icon="fas fa-save" :label="$tr('ui.label.save')"
+      <q-btn v-if="menuItems.length" @click="updateOrder" icon="fas fa-save" :label="$tr('isite.cms.label.save')"
              color="green" class="q-ml-xs" rounded unelevated/>
     </div>
 
@@ -61,7 +61,7 @@
           this.menuItems = this.arrayToTree(response.data.menuitems)
           this.loading = false
         }).catch(error => {
-          this.$alert.error({message: this.$tr('ui.message.errorRequest'), pos: 'bottom'})
+          this.$alert.error({message: this.$tr('isite.cms.message.errorRequest'), pos: 'bottom'})
           this.loading = false
         })
       },
@@ -72,11 +72,11 @@
         this.$crud.create('apiRoutes.qmenu.menuItemsOrdener', {menuitems: newdata})
           .then(response => {
             this.loading = false
-            this.$alert.success({message: `${this.$tr('ui.message.recordUpdated')}`})
+            this.$alert.success({message: `${this.$tr('isite.cms.message.recordUpdated')}`})
           })
           .catch(error => {
             this.loading = false
-            this.$alert.error({message: this.$tr('ui.message.errorRequest'), pos: 'bottom'})
+            this.$alert.error({message: this.$tr('isite.cms.message.errorRequest'), pos: 'bottom'})
           })
       },
       arrayToTree(elements, parentId = 0) {

@@ -45,7 +45,7 @@
       <q-card class="backend-page">
         <q-card-section>
           <h5 class="q-ma-none text-red">{{itemIdToDelete.label}}</h5>
-          {{$tr('ui.message.deleteRecord')}}
+          {{$tr('isite.cms.message.deleteRecord')}}
         </q-card-section>
 
         <q-card-actions align="right">
@@ -94,11 +94,11 @@
       deleteItem() {
         this.$crud.delete('apiRoutes.qmenu.menuItems', this.itemIdToDelete.id)
           .then(response => {
-            this.$alert.success({message: this.$tr('ui.message.recordDeleted')})
+            this.$alert.success({message: this.$tr('isite.cms.message.recordDeleted')})
             this.dialogDeleteItem = false
             this.$emit('updated')
           }).catch(error => {
-          this.$alert.error({message: this.$tr('ui.message.recordNoDeleted'), pos: 'bottom'})
+          this.$alert.error({message: this.$tr('isite.cms.message.recordNoDeleted'), pos: 'bottom'})
         })
       },
     }

@@ -8,12 +8,12 @@
         </div>
         <q-form @submit="itemId ? updateItem() : createItem()"
                 ref="formContent" class="row q-col-gutter-x-sm full-width" autocomplete="off"
-                @validation-error="$alert.error($tr('ui.message.formInvalid'))">
+                @validation-error="$alert.error($tr('isite.cms.message.formInvalid'))">
           <!--Form left-->
           <div class="col-7" v-if="locale.success">
             <q-input data-testid="title" outlined dense v-model="locale.formTemplate.title"
-                     :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
-                     :label="`${$tr('ui.form.title')} (${locale.language})*`"/>
+                     :rules="[val => !!val || $tr('isite.cms.message.fieldRequired')]"
+                     :label="`${$tr('isite.cms.form.title')} (${locale.language})*`"/>
 
             <dynamic-field v-model="locale.formTemplate.pageId" :field="dynamicFields.pages"
                            v-if="locale.formTemplate.linkType == 'page'"/>
@@ -22,41 +22,41 @@
                            :language="locale.language"/>
 
             <q-input data-testid="url" outlined dense v-model="locale.formTemplate.url" v-if="locale.formTemplate.linkType == 'external'"
-                     :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
-                     :label="`${$tr('qmenu.layout.form.url')} (${locale.language})*`"/>
+                     :rules="[val => !!val || $tr('isite.cms.message.fieldRequired')]"
+                     :label="`${$tr('menu.cms.form.url')} (${locale.language})*`"/>
 
             <q-input data-testid="uri" outlined dense v-model="locale.formTemplate.uri" v-if="locale.formTemplate.linkType == 'internal'"
-                     :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
-                     :label="`${$tr('qmenu.layout.form.uri')} (${locale.language})*`"/>
+                     :rules="[val => !!val || $tr('isite.cms.message.fieldRequired')]"
+                     :label="`${$tr('menu.cms.form.uri')} (${locale.language})*`"/>
 
             <q-select data-testid="status" outlined dense bg-color="white" v-model="locale.formTemplate.status"
-                      :options="status" :label="`${$tr('ui.form.status')} (${locale.language})`"
+                      :options="status" :label="`${$tr('isite.cms.form.status')} (${locale.language})`"
                       style="width: 100%;" emit-value map-options/>
 
-            <q-input data-testid="icon" outlined dense v-model="locale.formTemplate.icon" :label="`${$tr('ui.form.icon')}`"/>
+            <q-input data-testid="icon" outlined dense v-model="locale.formTemplate.icon" :label="`${$tr('isite.cms.form.icon')}`"/>
 
-            <q-input data-testid="class" outlined dense v-model="locale.formTemplate.class" :label="`${$tr('qmenu.layout.form.class')}`"/>
+            <q-input data-testid="class" outlined dense v-model="locale.formTemplate.class" :label="`${$tr('menu.cms.form.class')}`"/>
           </div>
           <!--Form Right-->
           <div class="col-5" v-if="locale.success">
             <q-select data-testid="linkType" outlined dense bg-color="white" v-model="locale.formTemplate.linkType"
-                      :options="linkTypes" :label="$tr('qmenu.layout.form.typeLink')"
+                      :options="linkTypes" :label="$tr('menu.cms.form.typeLink')"
                       style="width: 100%;" emit-value map-options/>
 
             <q-select data-testid="target" outlined dense bg-color="white" v-model="locale.formTemplate.target"
-                      :options="targets" :label="$tr('qmenu.layout.form.target')"
+                      :options="targets" :label="$tr('menu.cms.form.target')"
                       style="width: 100%;" emit-value map-options/>
 
             <q-select data-testid="parentId" outlined dense bg-color="white" v-model="locale.formTemplate.parentId"
-                      :options="menuItems" :label="$tr('ui.form.parent')"
+                      :options="menuItems" :label="$tr('isite.cms.form.parent')"
                       style="width: 100%;" emit-value map-options/>
           </div>
           <!--Button Actions-->
           <div class="col-12 text-right">
             <q-btn v-if="itemId" color="green" :loading="loading" icon="fas fa-edit"
-                   :label="$tr('ui.label.update')" type="submit" rounded unelevated/>
+                   :label="$tr('isite.cms.label.update')" type="submit" rounded unelevated/>
             <q-btn v-else color="green" :loading="loading" icon="fas fa-edit"
-                   :label="$tr('ui.label.create')" type="submit" rounded unelevated/>
+                   :label="$tr('isite.cms.label.create')" type="submit" rounded unelevated/>
           </div>
         </q-form>
       </div>
@@ -94,18 +94,18 @@
         menuItems: [],
         pages: [],
         targets: [
-          {value: '_self', label: this.$tr('qmenu.layout.form.sameTab')},
-          {value: '_blank', label: this.$tr('qmenu.layout.form.newTab')},
+          {value: '_self', label: this.$tr('menu.cms.form.sameTab')},
+          {value: '_blank', label: this.$tr('menu.cms.form.newTab')},
         ],
         status: [
-          {label: this.$tr('ui.label.enabled'), value: '1'},
-          {label: this.$tr('ui.label.disabled'), value: '0'},
+          {label: this.$tr('isite.cms.label.enabled'), value: '1'},
+          {label: this.$tr('isite.cms.label.disabled'), value: '0'},
         ],
         linkTypes: [
-          {label: this.$tr('qmenu.layout.form.page'), value: 'page'},
-          {label: this.$tr('qmenu.layout.form.internal'), value: 'internal'},
-          {label: this.$tr('qmenu.layout.form.external'), value: 'external'}
-          //{label: this.$tr('qmenu.layout.form.frontend'), value: 'frontend'},
+          {label: this.$tr('menu.cms.form.page'), value: 'page'},
+          {label: this.$tr('menu.cms.form.internal'), value: 'internal'},
+          {label: this.$tr('menu.cms.form.external'), value: 'external'}
+          //{label: this.$tr('menu.cms.form.frontend'), value: 'frontend'},
         ]
       }
     },
@@ -141,8 +141,8 @@
             value: null,
             type: 'select',
             props: {
-              label: this.$tr('ui.form.page'),
-              rules: [val => !!val || this.$tr('ui.message.fieldRequired')]
+              label: this.$tr('isite.cms.form.page'),
+              rules: [val => !!val || this.$tr('isite.cms.message.fieldRequired')]
             },
             loadOptions: {
               apiRoute: 'apiRoutes.qpage.pages'
@@ -153,7 +153,7 @@
             type: 'input',
             isTranslatable: true,
             props: {
-              label: `${this.$tr('ui.form.description')}`,
+              label: `${this.$tr('isite.cms.form.description')}`,
               type: 'textarea',
               rows: "3",
             },
@@ -190,7 +190,7 @@
               this.orderDataItemToLocale(response.data)
               resolve(true)//Resolve
             }).catch(error => {
-              this.$alert.error({message: this.$tr('ui.message.errorRequest'), pos: 'bottom'})
+              this.$alert.error({message: this.$tr('isite.cms.message.errorRequest'), pos: 'bottom'})
               this.loading = false
               reject(false)//Resolve
             })
@@ -208,11 +208,11 @@
           this.loading = true
           let configName = 'apiRoutes.qmenu.menuItems'
           this.$crud.create(configName, this.getDataForm()).then(response => {
-            this.$alert.success({message: `${this.$tr('ui.message.recordCreated')} ID: ${response.data.id}`})
+            this.$alert.success({message: `${this.$tr('isite.cms.message.recordCreated')} ID: ${response.data.id}`})
             this.$router.push({name: 'qmenu.admin.menus.show', params: {id: this.$route.params.menuId}})
           }).catch(error => {
             this.loading = false
-            this.$alert.error({message: this.$tr('ui.message.recordNoCreated'), pos: 'bottom'})
+            this.$alert.error({message: this.$tr('isite.cms.message.recordNoCreated'), pos: 'bottom'})
           })
         }
       },
@@ -221,12 +221,12 @@
           this.loading = true
           let configName = 'apiRoutes.qmenu.menuItems'
           this.$crud.update(configName, this.itemId, this.getDataForm()).then(response => {
-            this.$alert.success({message: `${this.$tr('ui.message.recordUpdated')}`})
+            this.$alert.success({message: `${this.$tr('isite.cms.message.recordUpdated')}`})
             //this.initForm()
             this.loading = false
           }).catch(error => {
             this.loading = false
-            this.$alert.error({message: this.$tr('ui.message.recordNoUpdated'), pos: 'bottom'})
+            this.$alert.error({message: this.$tr('isite.cms.message.recordNoUpdated'), pos: 'bottom'})
           })
         }
       },
