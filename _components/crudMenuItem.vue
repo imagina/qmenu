@@ -7,16 +7,18 @@
   >
     <div class="box relative-position">
       <!-- btn create new menu item -->
-      <q-btn 
-        color="green" 
-        class="q-ml-xs q-mb-sm text-cente text-capitalize" 
-        unelevated
-        rounded outline
-        @click="createItem()"
-      >
-        <q-icon name="fas fa-plus-circle" class="q-mr-sm" size="16px"/>
-        {{this.$tr('menu.cms.newItem')}}
-      </q-btn>
+      <div class="row justify-end">
+        <q-btn 
+          color="green" 
+          class="q-ml-xs q-mb-sm text-cente text-capitalize" 
+          unelevated
+          rounded outline
+          @click="$refs.crudMenuItems.create()"
+        >
+          <q-icon name="fas fa-plus-circle" class="q-mr-sm" size="16px"/>
+          {{this.$tr('menu.cms.newItem')}}
+        </q-btn>
+      </div>
       <!-- crud template -->
       <crud
         :crud-data="import('@imagina/qmenu/_crud/menuItems')"
@@ -44,6 +46,11 @@
     components: {
       nestedMenuItems,
     },
+    mounted() {
+      this.$nextTick(() => {
+        this.$root.$on('updateMenuItems', this.handlerUpdateMenuItems)
+      })
+    },
     data() {
       return {
         deleteApi: 'apiRoutes.qmenu.menuItems',
@@ -60,11 +67,6 @@
           }
         }]
       }
-    },
-    mounted() {
-      this.$nextTick(() => {
-        this.$root.$on('updateMenuItems', this.handlerUpdateMenuItems)
-      })
     },
     computed: {
       customMenuItem() {
@@ -139,12 +141,6 @@
       }
     },
     methods: {
-      getDataForm (data) {
-        return new Promise((resolve, reject) => {
-          data.menuId = this.menuId
-          resolve(data)
-        })
-      },
       openModal ({show, title, menuId}) {
         this.show = show
         this.title = title
@@ -152,9 +148,6 @@
         setTimeout(()=> {
           this.getItems()
         },100)
-      },
-      createItem () {
-        this.$refs.crudMenuItems.create()
       },
       getItems(refresh = false) {
         this.loading = true
@@ -210,7 +203,6 @@
             this.$alert.error({message: this.$tr('isite.cms.message.errorRequest')})
           })
       },
-      
       arrayToTree(elements, parentId = 0) {
         return elements.filter(element => {
           if (element.parentId == parentId) {

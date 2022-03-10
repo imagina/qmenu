@@ -11,7 +11,6 @@ import crudMenuItem from '@imagina/qmenu/_components/crudMenuItem'
       return {
         modalTitle: this.$trp('isite.cms.label.item'),
         crudId: this.$uid(),
-        customData: null
       }
     },
     methods: {
@@ -86,6 +85,7 @@ import crudMenuItem from '@imagina/qmenu/_components/crudMenuItem'
             //custom action btn elements
             actions: [
               {
+                //Set modal data
                 icon: 'fas fa-list-ol',
                 color: 'info',
                 action: (item) => {
@@ -94,9 +94,6 @@ import crudMenuItem from '@imagina/qmenu/_components/crudMenuItem'
                     title : `${this.modalTitle} | ${item.title}`, 
                     menuId : item.id
                   })
-                  //Set modal data
-                  this.customData = item
-                  //this.$refs.crudMenuItem.getItems()
                 },
                 label: this.modalTitle
               }

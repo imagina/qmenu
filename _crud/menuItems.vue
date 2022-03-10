@@ -14,10 +14,10 @@ export default {
       //Crud data
       return {
         crudId: this.crudId,
-        entityName: config("main.qmenu.entityNames.menu"),
+        entityName: config("main.qmenu.entityNames.menuitems"),
         apiRoute: 'apiRoutes.qmenu.menuItems',
-        permission: 'menu.menus',
-        extraFormFields: 'menu.crud-fields.menus',
+        permission: 'menu.menuitems',
+        extraFormFields: 'menu.crud-fields.menuitems',
         create: {
           title: this.$tr('menu.cms.newItem'),
         },
