@@ -1,13 +1,29 @@
-<template></template>
+<template>
+<!-- crud compoment -->
+  <crud-menu-item ref="crudMenuItem" />
+</template>
 <script>
+import crudMenuItem from '@imagina/qmenu/_components/crudMenuItem'
   export default {
+    name:"menuAdmin",
+    components:{ crudMenuItem },
     data() {
       return {
-        crudId: this.$uid()
+        modalTitle: this.$trp('isite.cms.label.item'),
+        crudId: this.$uid(),
+        customData: null
+      }
+    },
+    methods: {
+      refreshData() {
+        setTimeout(() => {
+          if (this.$refs.crudMenu) this.$refs.crudMenu.getData(true)
+        }, 100)
       }
     },
     computed: {
       crudData() {
+        //Crud data
         return {
           crudId: this.crudId,
           entityName: config("main.qmenu.entityNames.menu"),
@@ -66,11 +82,28 @@
                   ]
                 }
               }
-            }
+            },
+            //custom action btn elements
+            actions: [
+              {
+                icon: 'fas fa-list-ol',
+                color: 'info',
+                action: (item) => {
+                  this.$refs.crudMenuItem.openModal({
+                    show : true, 
+                    title : `${this.modalTitle} | ${item.title}`, 
+                    menuId : item.id
+                  })
+                  //Set modal data
+                  this.customData = item
+                  //this.$refs.crudMenuItem.getItems()
+                },
+                label: this.modalTitle
+              }
+            ]
           },
           update: {
             title: this.$tr('menu.cms.updateMenu'),
-            to: 'qmenu.admin.menus.show'
           },
           delete: true,
           formLeft: {
