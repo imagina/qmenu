@@ -1,11 +1,11 @@
 <template>
-    
+
 </template>
 <script>
 
 export default {
   data() {
-    return{
+    return {
       crudId: this.$uid()
     }
   },
@@ -31,9 +31,9 @@ export default {
             value: null,
             type: 'input',
             isTranslatable: true,
-            props : {
-              label: this.$tr('isite.cms.form.title') +'*',
-              rules: [val => !!val || $tr('isite.cms.message.fieldRequired')],
+            props: {
+              label: this.$tr('isite.cms.form.title') + '*',
+              rules: [val => !!val || this.$tr('isite.cms.message.fieldRequired')],
             }
           },
           menuId: {
@@ -67,19 +67,19 @@ export default {
           url: {
             value: null,
             type: 'input',
-            props : {
+            props: {
               vIf: this.crudInfo.linkType == 'external',
               label: this.$tr('menu.cms.form.url') + '*',
-              rules: [val => !!val || $tr('isite.cms.message.fieldRequired')],
+              rules: [val => !!val || this.$tr('isite.cms.message.fieldRequired')],
             }
           },
           uri: {
             value: null,
             type: 'input',
-            props : {
+            props: {
               vIf: this.crudInfo.linkType == 'internal',
               label: this.$tr('menu.cms.form.uri') + '*',
-              rules: [val => !!val || $tr('isite.cms.message.fieldRequired')],
+              rules: [val => !!val || this.$tr('isite.cms.message.fieldRequired')],
             }
           },
           description: {
@@ -97,7 +97,8 @@ export default {
           status: {
             value: '1',
             type: 'select',
-            props : {
+            isTranslatable: true,
+            props: {
               label: this.$tr('isite.cms.form.status'),
               options: [
                 {label: this.$tr('isite.cms.label.enabled'), value: '1'},
@@ -119,29 +120,28 @@ export default {
               }
             }
           },
-          target: {
+          icon: {
             value: null,
+            type: 'input',
+            props: {
+              label: this.$tr('isite.cms.form.icon'),
+            }
+          },
+          target: {
+            value: '_self',
             type: 'select',
             props: {
               label: this.$tr('menu.cms.form.target'),
-              rules: [val => !!val || this.$tr('isite.cms.message.fieldRequired')],
               options: [
                 {value: '_self', label: this.$tr('menu.cms.form.sameTab')},
                 {value: '_blank', label: this.$tr('menu.cms.form.newTab')},
               ],
             },
           },
-          icon: {
-            value: null,
-            type: 'input',
-            props : {
-              label: this.$tr('isite.cms.form.icon'),
-            }
-          },
           class: {
             value: null,
             type: 'input',
-            props : {
+            props: {
               label: this.$tr('menu.cms.form.class'),
             }
           },
