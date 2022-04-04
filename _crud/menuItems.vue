@@ -67,6 +67,7 @@ export default {
           url: {
             value: null,
             type: 'input',
+            isTranslatable: true,
             props: {
               vIf: this.crudInfo.linkType == 'external',
               label: this.$tr('menu.cms.form.url') + '*',
@@ -76,6 +77,7 @@ export default {
           uri: {
             value: null,
             type: 'input',
+            isTranslatable: true,
             props: {
               vIf: this.crudInfo.linkType == 'internal',
               label: this.$tr('menu.cms.form.uri') + '*',
