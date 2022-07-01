@@ -57,8 +57,8 @@ export default {
             type: 'select',
             props: {
               vIf: this.crudInfo.linkType == 'page',
-              label: this.$tr('isite.cms.form.page') + '*',
-              rules: [val => !!val || this.$tr('isite.cms.message.fieldRequired')]
+              label: this.$tr('isite.cms.form.page'),
+              //rules: [val => !!val || this.$tr('isite.cms.message.fieldRequired')]
             },
             loadOptions: {
               apiRoute: 'apiRoutes.qpage.pages'
@@ -70,8 +70,8 @@ export default {
             isTranslatable: true,
             props: {
               vIf: this.crudInfo.linkType == 'external',
-              label: this.$tr('menu.cms.form.url') + '*',
-              rules: [val => !!val || this.$tr('isite.cms.message.fieldRequired')],
+              label: this.$tr('menu.cms.form.url'),
+              //rules: [val => !!val || this.$tr('isite.cms.message.fieldRequired')],
             }
           },
           uri: {
@@ -80,8 +80,8 @@ export default {
             isTranslatable: true,
             props: {
               vIf: this.crudInfo.linkType == 'internal',
-              label: this.$tr('menu.cms.form.uri') + '*',
-              rules: [val => !!val || this.$tr('isite.cms.message.fieldRequired')],
+              label: this.$tr('menu.cms.form.uri'),
+              //rules: [val => !!val || this.$tr('isite.cms.message.fieldRequired')],
             }
           },
           description: {
