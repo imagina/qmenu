@@ -77,6 +77,22 @@ export default {
             data.menuId = this.menuId
             resolve(data)
           })
+        },
+        formRight: {
+          parentId: {
+            value: null,
+            type: 'treeSelect',
+            props: {
+              label: this.$tr('isite.cms.form.parent'),
+            },
+            loadOptions: {
+              apiRoute: 'apiRoutes.qmenu.menuItems',
+              refresh: true,
+              requestParams: {
+                filter: {allTranslations: true, menu: this.menuId}
+              }
+            }
+          },
         }
       }
     }
