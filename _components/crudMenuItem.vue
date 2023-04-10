@@ -116,8 +116,10 @@ export default {
         this.menuItems = this.arrayToTree(menuitems)
         this.loading = false
       }).catch(error => {
-        this.$alert.error({message: this.$tr('isite.cms.message.recordNoUpdated')})
-        this.loading = false
+        this.$apiResponse.handleError(error, () => {
+          this.$alert.error({message: this.$tr('isite.cms.message.recordNoUpdated')})
+          this.loading = false
+        })
       })
     },
     setActions(menu) {

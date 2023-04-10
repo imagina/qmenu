@@ -190,9 +190,11 @@
               this.orderDataItemToLocale(response.data)
               resolve(true)//Resolve
             }).catch(error => {
-              this.$alert.error({message: this.$tr('isite.cms.message.errorRequest'), pos: 'bottom'})
-              this.loading = false
-              reject(false)//Resolve
+              this.$apiResponse.handleError(error, () => {
+                this.$alert.error({message: this.$tr('isite.cms.message.errorRequest'), pos: 'bottom'})
+                this.loading = false
+                reject(false)//Resolve
+              })
             })
           } else {
             resolve(true)//Resolve
@@ -257,8 +259,10 @@
             this.menuItems = this.$array.tree(response.data)
             resolve(true)
           }).catch(error => {
-            this.$alert.error('Failed: ' + error, 'bottom')
-            reject(true)
+            this.$apiResponse.handleError(error, () => {
+              this.$alert.error('Failed: ' + error, 'bottom')
+              reject(true)
+            })
           })
         })
       },
