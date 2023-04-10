@@ -5,11 +5,11 @@ export default {
     activated: true,
     path: '/menus',
     name: 'qmenu.admin.menus',
-    crud : import('@imagina/qmenu/_crud/menus'),
+    crud: import('@imagina/qmenu/_crud/menus'),
     page: () => import('@imagina/qcrud/_pages/admin/crudPage'),
     layout: () => import('@imagina/qsite/_layouts/master.vue'),
     title: 'menu.cms.sidebar.adminMenus',
-    icon: 'fas fa-stream',
+    icon: 'fa-light fa-list-dropdown',
     authenticated: true,
   },
   menusShow: {
