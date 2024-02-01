@@ -105,7 +105,7 @@
   };
 </script>
 
-<style lang="sass">
+<style lang="scss">
   .list-group-item
     .list-group-item
       padding-left 15px !important
