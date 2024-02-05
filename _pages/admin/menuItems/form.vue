@@ -67,7 +67,7 @@
 </template>
 
 <script>
-  import {required} from 'vuelidate/lib/validators'
+//[ptc]import {required} from 'vuelidate/lib/validators'
 
   export default {
     components: {},
