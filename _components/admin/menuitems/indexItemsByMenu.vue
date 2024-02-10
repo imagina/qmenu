@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import nestedMenuItems from '@imagina/qmenu/_components/admin/menuitems/nested'
+  import nestedMenuItems from 'modules/qmenu/_components/admin/menuitems/nested'
 
   export default {
     components: {

@@ -1,4 +1,4 @@
-import helper from '@imagina/qsite/_plugins/helper'
+import helper from 'modules/qsite/_plugins/helper'
 
 export const mainMenu = (state) => {
   let mainMenu = []

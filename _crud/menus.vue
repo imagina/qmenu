@@ -3,7 +3,7 @@
   <crud-menu-item ref="crudMenuItem" />
 </template>
 <script>
-import crudMenuItem from '@imagina/qmenu/_components/crudMenuItem'
+import crudMenuItem from 'modules/qmenu/_components/crudMenuItem'
   export default {
     name:"menuAdmin",
     components:{ crudMenuItem },
@@ -90,8 +90,8 @@ import crudMenuItem from '@imagina/qmenu/_components/crudMenuItem'
                 color: 'info',
                 action: (item) => {
                   this.$refs.crudMenuItem.openModal({
-                    show : true, 
-                    title : `${this.modalTitle} | ${item.title}`, 
+                    show : true,
+                    title : `${this.modalTitle} | ${item.title}`,
                     menuId : item.id
                   })
                 },

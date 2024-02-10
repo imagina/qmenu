@@ -22,7 +22,7 @@
       </div>
       <!-- crud template -->
       <crud
-          :crud-data="import('@imagina/qmenu/_crud/menuItems')"
+          :crud-data="import('modules/qmenu/_crud/menuItems')"
           type="onlyUpdate"
           ref="crudMenuItems"
           @created="getItems(true)"
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import nestedMenuItems from '@imagina/qsite/_components/master/recursiveItemDraggable'
+import nestedMenuItems from 'modules/qsite/_components/master/recursiveItemDraggable'
 
 export default {
   name: "crudMenuItems",
