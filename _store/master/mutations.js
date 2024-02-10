@@ -1,4 +1,4 @@
-//import array from '@imagina/qhelper/_plugins/array'
+//import array from 'modules/qhelper/_plugins/array'
 
 export const MENU_SUCCESS = (state, data) => {
   state.mainMenu = data

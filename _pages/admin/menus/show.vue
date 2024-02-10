@@ -15,8 +15,8 @@
 
 <script>
   // Components
-  import formMenu from '@imagina/qmenu/_components/admin/menus/form'
-  import indexItemsByMenu from '@imagina/qmenu/_components/admin/menuitems/indexItemsByMenu'
+  import formMenu from 'modules/qmenu/_components/admin/menus/form'
+  import indexItemsByMenu from 'modules/qmenu/_components/admin/menuitems/indexItemsByMenu'
 
   export default {
     components: {
