@@ -41,6 +41,7 @@
 
 <script>
 import nestedMenuItems from 'modules/qsite/_components/master/recursiveItemDraggable'
+import { eventBus } from 'src/plugins/utils'
 
 export default {
   name: "crudMenuItems",
@@ -49,7 +50,7 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.$root.$on('updateMenuItems', this.handlerUpdateMenuItems)
+      eventBus.on('updateMenuItems', this.handlerUpdateMenuItems)
     })
   },
   data() {
