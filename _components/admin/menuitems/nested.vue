@@ -74,6 +74,7 @@
         type: Array
       }
     },
+    emits: ['updated'],
     data() {
       return {
         dialogDeleteItem: false,
