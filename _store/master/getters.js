@@ -1,4 +1,4 @@
-import helper from 'modules/qsite/_plugins/helper'
+import { helper } from 'src/plugins/utils'
 
 export const mainMenu = (state) => {
   let mainMenu = []
