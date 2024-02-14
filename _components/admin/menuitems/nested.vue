@@ -4,41 +4,45 @@
       tag="div"
       v-bind="dragOptions"
       :list="menuItems"
-      :group="{ name: 'g1' }">
-      <div
-        class="list-group-item"
-        v-for="(menuItem, index) in menuItems"
-        :key="menuItem.id">
-        <div class="row justify-between q-mb-xs q-mt-xs">
-          <div class="col-6 q-py-xs">
-            <q-icon class="cursor-pointer" name="fas fa-arrows-alt"/>
-            {{menuItem.title}}
+      :group="{ name: 'g1' }"
+      item-key="name"
+    >
+      <template #item="{ menuItem }">
+        <div
+          class="list-group-item"
+          :key="menuItem.id"
+        >
+          <div class="row justify-between q-mb-xs q-mt-xs">
+            <div class="col-6 q-py-xs">
+              <q-icon class="cursor-pointer" name="fas fa-arrows-alt"/>
+              {{menuItem.title}}
+            </div>
+            <div class="col-6 text-right q-py-xs relative-position">
+              <q-btn
+                :to="{name: 'qmenu.admin.menu.update', params: {menuId: $route.params.id, id: menuItem.id}}"
+                icon="fas fa-pen"
+                size="xs"
+                class="q-mr-sm"
+                rounded
+                unelevated
+                color="green"/>
+              <q-btn
+                @click="dialogDeleteItem = true; itemIdToDelete = menuItem"
+                icon="fas fa-trash-alt"
+                size="xs"
+                rounded
+                unelevated
+                color="red"/>
+            </div>
+            <div class="col-12">
+              <q-separator/>
+            </div>
           </div>
-          <div class="col-6 text-right q-py-xs relative-position">
-            <q-btn
-              :to="{name: 'qmenu.admin.menu.update', params: {menuId: $route.params.id, id: menuItem.id}}"
-              icon="fas fa-pen"
-              size="xs"
-              class="q-mr-sm"
-              rounded
-              unelevated
-              color="green"/>
-            <q-btn
-              @click="dialogDeleteItem = true; itemIdToDelete = menuItem"
-              icon="fas fa-trash-alt"
-              size="xs"
-              rounded
-              unelevated
-              color="red"/>
-          </div>
-          <div class="col-12">
-            <q-separator/>
-          </div>
+          <nestedDraggable
+            :class="`${menuItem.children.length} ?: q-mb-xs`"
+            :menuItems="menuItem.children"/>
         </div>
-        <nestedDraggable
-          :class="`${menuItem.children.length} ?: q-mb-xs`"
-          :menuItems="menuItem.children"/>
-      </div>
+      </template>
     </draggable>
 
     <q-dialog v-model="dialogDeleteItem">
