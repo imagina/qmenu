@@ -1,6 +1,6 @@
 /*Services*/
 import crud from 'modules/qcrud/_services/baseService'
-import helper from 'modules/qsite/_plugins/helper'
+import { helper } from 'src/plugins/utils'
 
 export const MENU_MAIN = ({ commit, state, dispatch }, criteria, params = {}) => {
    params = {
