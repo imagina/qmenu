@@ -27,6 +27,7 @@
 
 <script>
   import nestedMenuItems from 'modules/qmenu/_components/admin/menuitems/nested'
+  import { eventBus } from 'src/plugins/utils'
 
   export default {
     components: {
@@ -45,7 +46,7 @@
     created() {
       this.$nextTick(() => {
         this.getItems()
-        this.$root.$on('updateMenuItems', this.handlerUpdateMenuItems)
+        eventBus.on('updateMenuItems', this.handlerUpdateMenuItems)
       })
     },
     methods: {
