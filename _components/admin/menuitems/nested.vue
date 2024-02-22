@@ -5,21 +5,21 @@
       v-bind="dragOptions"
       :list="menuItems"
       :group="{ name: 'g1' }"
-      item-key="name"
+      item-key="id"
     >
-      <template #item="{ menuItem }">
+      <template #item="{ element }">
         <div
           class="list-group-item"
-          :key="menuItem.id"
+          :key="element.id"
         >
           <div class="row justify-between q-mb-xs q-mt-xs">
             <div class="col-6 q-py-xs">
               <q-icon class="cursor-pointer" name="fas fa-arrows-alt"/>
-              {{menuItem.title}}
+              {{element.title}}
             </div>
             <div class="col-6 text-right q-py-xs relative-position">
               <q-btn
-                :to="{name: 'qmenu.admin.menu.update', params: {menuId: $route.params.id, id: menuItem.id}}"
+                :to="{name: 'qmenu.admin.menu.update', params: {menuId: $route.params.id, id: element.id}}"
                 icon="fas fa-pen"
                 size="xs"
                 class="q-mr-sm"
@@ -27,7 +27,7 @@
                 unelevated
                 color="green"/>
               <q-btn
-                @click="dialogDeleteItem = true; itemIdToDelete = menuItem"
+                @click="dialogDeleteItem = true; itemIdToDelete = element"
                 icon="fas fa-trash-alt"
                 size="xs"
                 rounded
@@ -39,8 +39,8 @@
             </div>
           </div>
           <nestedDraggable
-            :class="`${menuItem.children.length} ?: q-mb-xs`"
-            :menuItems="menuItem.children"/>
+            :class="`${element.children.length} ?: q-mb-xs`"
+            :menuItems="element.children"/>
         </div>
       </template>
     </draggable>
