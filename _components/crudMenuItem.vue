@@ -113,6 +113,7 @@ export default {
       }
       this.$crud.show('apiRoutes.qmenu.menus', menuId, params).then(({data}) => {
         const menuitems = this.setActions(data.menuitems)
+        menuitems.sort((a, b) => a.position - b.position)
         this.menuItems = this.arrayToTree(menuitems)
         this.loading = false
       }).catch(error => {
