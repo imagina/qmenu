@@ -27,7 +27,7 @@ import crudMenuItem from 'modules/qmenu/_components/crudMenuItem'
           crudId: this.crudId,
           entityName: config("main.qmenu.entityNames.menu"),
           apiRoute: 'apiRoutes.qmenu.menus',
-          permission: 'menu.menus',
+          permission: 'imenu.menus',
           extraFormFields: 'menu.crud-fields.menus',
           create: {
             title: this.$tr('menu.cms.newMenu'),
@@ -44,8 +44,8 @@ import crudMenuItem from 'modules/qmenu/_components/crudMenuItem'
                 align: 'left',
               },
               {
-                name: 'name', label: this.$tr('isite.cms.form.name'),
-                field: 'name',
+                name: 'systemName', label: this.$tr('isite.cms.form.systemName'),
+                field: 'systemName',
                 align: 'left',
               },
               {
@@ -53,12 +53,6 @@ import crudMenuItem from 'modules/qmenu/_components/crudMenuItem'
                 field: 'status',
                 align: 'left',
                 format: val => val ? this.$tr(`isite.cms.label.${parseInt(val) ? 'enabled' : 'disabled'}`) : '-',
-              },
-              {
-                name: 'isDefault', label: this.$tr('isite.cms.form.default'),
-                field: 'isDefault',
-                align: 'left',
-                format: val => val ? this.$tr(`isite.cms.label.${parseInt(val) ? 'yes' : 'no'}`) : '-',
               },
               {
                 name: 'createdAt', label: this.$tr('isite.cms.form.createdAt'), field: 'createdAt',
@@ -97,10 +91,12 @@ import crudMenuItem from 'modules/qmenu/_components/crudMenuItem'
                 },
                 label: this.modalTitle
               }
-            ]
+            ],
+            requestParams: {include:'translations'}
           },
           update: {
             title: this.$tr('menu.cms.updateMenu'),
+            requestParams: {include:'translations'}
           },
           delete: true,
           formLeft: {
@@ -113,11 +109,11 @@ import crudMenuItem from 'modules/qmenu/_components/crudMenuItem'
                 rules: [val => !!val || this.$tr('isite.cms.message.fieldRequired')],
               }
             },
-            name: {
+            systemName: {
               value: null,
               type: 'input',
               props : {
-                label: this.$tr('isite.cms.form.name'),
+                label: this.$tr('isite.cms.form.systemName'),
                 rules: [val => !!val || this.$tr('isite.cms.message.fieldRequired')],
               }
             },
@@ -132,18 +128,7 @@ import crudMenuItem from 'modules/qmenu/_components/crudMenuItem'
                   {label: this.$tr('isite.cms.label.disabled'), value: '0'},
                 ]
               }
-            },
-            isDefault: {
-              value: '0',
-              type: 'select',
-              props : {
-                label: this.$tr('isite.cms.form.default'),
-                options: [
-                  {label: this.$tr('isite.cms.label.yes'), value: '1'},
-                  {label: this.$tr('isite.cms.label.no'), value: '0'},
-                ]
-              }
-            },
+            }
           },
         }
       },

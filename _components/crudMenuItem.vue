@@ -110,10 +110,10 @@ export default {
       let menuId = this.menuId
       let params = {
         refresh: refresh,
-        params: {include: 'menuitems'},
+        params: {include: 'menuItems'},
       }
       this.$crud.show('apiRoutes.qmenu.menus', menuId, params).then(({data}) => {
-        const menuitems = this.setActions(data.menuitems)
+        const menuitems = this.setActions(data.menuItems)
         this.menuItems = this.arrayToTree(menuitems)
         this.loading = false
       }).catch(error => {

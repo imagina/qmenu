@@ -16,7 +16,7 @@ export default {
         crudId: this.crudId,
         entityName: config("main.qmenu.entityNames.menuitems"),
         apiRoute: 'apiRoutes.qmenu.menuItems',
-        permission: 'menu.menuitems',
+        permission: 'imenu.menuitems',
         extraFormFields: 'menu.crud-fields.menuitems',
         create: {
           title: this.$tr('menu.cms.newItem'),

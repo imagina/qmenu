@@ -1,7 +1,7 @@
 export default {
 //Menu List
   menus: {
-    permission: 'menu.menus.manage',
+    permission: 'imenu.menus.manage',
     activated: true,
     path: '/menus',
     name: 'qmenu.admin.menus',
@@ -13,7 +13,7 @@ export default {
     authenticated: true,
   },
   menusShow: {
-    permission: 'menu.menus.edit',
+    permission: 'imenu.menus.edit',
     activated: true,
     path: '/menus/menu/:id',
     name: 'qmenu.admin.menus.show',
