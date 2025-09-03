@@ -55,7 +55,7 @@
         let menuId = this.$route.params.id
         let params = {
           refresh: refresh,
-          params: {include: 'menuitems'},
+          params: {include: 'menuitems.translations'},
         }
 
         this.$crud.show('apiRoutes.qmenu.menus', menuId, params).then(response => {
@@ -71,8 +71,9 @@
       updateOrder() {
         let newdata = []
         this.treeToArray(this.menuItems, newdata)
+        newdata = newdata.map((item, index) => ({id: item.id, sort_order: index + 1}))
         this.loading = true
-        this.$crud.create('apiRoutes.qmenu.menuItemsOrdener', {menuitems: newdata})
+        this.$crud.put('apiRoutes.qmenu.menuItemsOrder', newdata)
           .then(response => {
             this.loading = false
             this.$alert.success({message: `${this.$tr('isite.cms.message.recordUpdated')}`})

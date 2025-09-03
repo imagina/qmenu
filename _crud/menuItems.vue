@@ -24,6 +24,7 @@ export default {
         read: false,
         update: {
           title: this.$tr('menu.cms.updateItem'),
+          requestParams:{include:'translations'}
         },
         delete: true,
         formLeft: {
@@ -61,7 +62,8 @@ export default {
               //rules: [val => !!val || this.$tr('isite.cms.message.fieldRequired')]
             },
             loadOptions: {
-              apiRoute: 'apiRoutes.qpage.pages'
+              apiRoute: 'apiRoutes.qpage.pages',
+              requestParams: {include:'translations'}
             }
           },
           url: {

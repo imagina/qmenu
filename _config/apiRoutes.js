@@ -5,5 +5,5 @@ export default {
   urlBase : urlBase,
   menus: `${urlBase}/menus`,
   menuItems: `${urlBase}/menuitems`,
-  menuItemsOrdener: `${urlBase}/menuitem/ordener`,
+  menuItemsOrder: `${urlBase}/menuitems/bulk/order`,
 }

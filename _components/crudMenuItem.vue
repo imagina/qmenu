@@ -148,8 +148,9 @@ export default {
     updateOrder() {
       let newdata = []
       this.treeToArray(this.menuItems, newdata)
+      newdata = newdata.map((item, index) => ({id: item.id, sort_order: index + 1}))
       this.loading = true
-      this.$crud.create('apiRoutes.qmenu.menuItemsOrdener', {menuitems: newdata})
+      this.$crud.put('apiRoutes.qmenu.menuItemsOrder', {attributes: newdata})
           .then(response => {
             this.loading = false
             this.show = false
